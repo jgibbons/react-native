@@ -47,8 +47,13 @@ const DatePickerIOS = React.createClass({
     /**
      * The currently selected date.
      */
-    date: PropTypes.instanceOf(Date).isRequired,
+    date: PropTypes.instanceOf(Date),
 
+     /**
+     * The initially selected date.
+     */
+    initialDate: PropTypes.instanceOf(Date),
+    
     /**
      * Date change handler.
      *
@@ -110,11 +115,13 @@ const DatePickerIOS = React.createClass({
     // prop. That way they can also disallow/undo/mutate the selection of
     // certain values. In other words, the embedder of this component should
     // be the source of truth, not the native component.
-    const propsTimeStamp = this.props.date.getTime();
-    if (this._picker && nativeTimeStamp !== propsTimeStamp) {
-      this._picker.setNativeProps({
-        date: propsTimeStamp,
-      });
+    if (this.props.date) {
+      const propsTimeStamp = this.props.date.getTime();
+      if (this._picker && nativeTimeStamp !== propsTimeStamp) {
+        this._picker.setNativeProps({
+          date: propsTimeStamp,
+        });
+      }
     }
   },
 
@@ -125,7 +132,8 @@ const DatePickerIOS = React.createClass({
         <RCTDatePickerIOS
           ref={ picker => { this._picker = picker; } }
           style={styles.datePickerIOS}
-          date={props.date.getTime()}
+          date={props.date ? props.date.getTime() : undefined}
+          initialDate={props.initialDate ? props.initialDate.getTime() : undefined}
           maximumDate={
             props.maximumDate ? props.maximumDate.getTime() : undefined
           }
@@ -154,6 +162,7 @@ const RCTDatePickerIOS = requireNativeComponent('RCTDatePicker', {
   propTypes: {
     ...DatePickerIOS.propTypes,
     date: PropTypes.number,
+    initialDate: PropTypes.number,
     minimumDate: PropTypes.number,
     maximumDate: PropTypes.number,
     onDateChange: () => null,
