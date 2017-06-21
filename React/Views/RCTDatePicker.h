@@ -10,5 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RCTDatePicker : UIDatePicker
+  
+@property (nonatomic, assign) NSDate* initialDate;
 
 @end
