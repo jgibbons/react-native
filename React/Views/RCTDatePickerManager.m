@@ -34,7 +34,8 @@ RCT_EXPORT_MODULE()
   return [RCTDatePicker new];
 }
 
-RCT_EXPORT_VIEW_PROPERTY(date, NSDate)
+// RCT_EXPORT_VIEW_PROPERTY(date, NSDate)
+RCT_EXPORT_VIEW_PROPERTY(initialDate, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(minimumDate, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(maximumDate, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(minuteInterval, NSInteger)
